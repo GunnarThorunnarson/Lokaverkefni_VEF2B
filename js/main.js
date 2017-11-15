@@ -1,28 +1,65 @@
 "use strict";
 var skjalftar = [];
+var lengd = 0;
 
-$.ajax({
+//Næ í gögn frá apis.is
+
+//Þetta er fall sem býr til kortið af Íslandi
+/*$.ajax({
 	'url': 'http://apis.is/earthquake/is',
 	'type': 'GET',
 	'dataType': 'JSON',
 	'success': function(data)	{
+		//Set gögnin í fylki
 		for (var i = 0; i < data.results.length; i++) {
 			skjalftar.push({
 				lat: data.results[i].latitude,
 				lng: data.results[i].longitude,
 				richter: data.results[i].size
 			});
-		}
-		console.log(skjalftar);
-	}
-});
+		}		
+		lengd = data.results.length;
+		console.log(lengd);
 
+	}		
 
-//Þetta er fall sem býr til kortið af Íslandi
-function initMap()	{
-	var stadsetning = {lat: 65, lng: -19};
-	var kort = new google.maps.Map(document.getElementById('island'), {
-		zoom: 6,
-		center: stadsetning
-	});
+});*/
+
+function initMap() {
+	$.ajax({
+		'url': 'http://apis.is/earthquake/is',
+		'type': 'GET',
+		'dataType': 'JSON',
+		'success': function(data)	{
+			//Set gögnin í fylki
+			for (var i = 0; i < data.results.length; i++) {
+				skjalftar.push({
+					lat: data.results[i].latitude,
+					lng: data.results[i].longitude,
+					richter: data.results[i].size
+				});
+			}		
+			lengd = data.results.length;
+			console.log(skjalftar[3].lat);
+			var stadsetning = {lat: 65, lng: -19};
+			var kort = new google.maps.Map(document.getElementById('island'), {
+				zoom: 6,
+				center: stadsetning
+			});
+			for (var x = 0; x < lengd; x++) {
+				var skjalftaHringur = new google.maps.Circle({
+					strokeColor: '#FF0000',
+            		strokeOpacity: 0.8,
+            		strokeWeight: 2,
+            		fillColor: '#FF0000',
+            		fillOpacity: 0.35,
+            		map: kort,
+            		center: {lat: skjalftar[x].lat, lng: skjalftar[x].lng},
+            		radius: skjalftar[x].richter * 10000
+				});
+			}
+		}		
+
+	});		
 }
+
