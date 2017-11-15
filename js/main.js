@@ -39,7 +39,7 @@ function initMap() {
 					richter: data.results[i].size
 				});
 			}		
-			lengd = data.results.length;
+			lengd = skjalftar.length;
 			console.log(skjalftar[3].lat);
 			var stadsetning = {lat: 65, lng: -19};
 			var kort = new google.maps.Map(document.getElementById('island'), {
@@ -47,6 +47,10 @@ function initMap() {
 				center: stadsetning
 			});
 			for (var x = 0; x < lengd; x++) {
+				/*var markerar = new google.maps.Marker({
+					map: kort, 
+					position: {lat: skjalftar[x].lat, lng: skjalftar[x].lng}
+				});*/
 				var skjalftaHringur = new google.maps.Circle({
 					strokeColor: '#FF0000',
             		strokeOpacity: 0.8,
@@ -57,9 +61,23 @@ function initMap() {
             		center: {lat: skjalftar[x].lat, lng: skjalftar[x].lng},
             		radius: skjalftar[x].richter * 10000
 				});
+				synaSkala(skjalftaHringur, skjalftar[x].richter.toString(), {lat: skjalftar[x].lat, lng: skjalftar[x].lng});
+
 			}
 		}		
 
 	});		
 }
+function synaSkala(circle, skali, local)	{
+	var infowindow = new google.maps.InfoWindow({
+		content: skali,
+		position: local
+	});
+	circle.addListener('mouseover', function() {
+		infowindow.open(circle.get('kort'), circle);
+	});
+	circle.addListener('mouseout', function()	{
+		infowindow.close(circle.get('kort'), circle);
+	})
+} 
 
