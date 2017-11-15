@@ -2,30 +2,10 @@
 var skjalftar = [];
 var lengd = 0;
 
-//Næ í gögn frá apis.is
 
-//Þetta er fall sem býr til kortið af Íslandi
-/*$.ajax({
-	'url': 'http://apis.is/earthquake/is',
-	'type': 'GET',
-	'dataType': 'JSON',
-	'success': function(data)	{
-		//Set gögnin í fylki
-		for (var i = 0; i < data.results.length; i++) {
-			skjalftar.push({
-				lat: data.results[i].latitude,
-				lng: data.results[i].longitude,
-				richter: data.results[i].size
-			});
-		}		
-		lengd = data.results.length;
-		console.log(lengd);
-
-	}		
-
-});*/
 
 function initMap() {
+	//Næ í gögn frá apis.is
 	$.ajax({
 		'url': 'http://apis.is/earthquake/is',
 		'type': 'GET',
@@ -80,5 +60,4 @@ function synaSkala(circle, skali, local)	{
 	circle.addListener('mouseout', function()	{
 		infowindow.close(circle.get('kort'), circle);
 	})
-} 
-
+}
