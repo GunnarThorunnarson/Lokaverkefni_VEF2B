@@ -44,7 +44,8 @@ function initMap() {
 			var stadsetning = {lat: 65, lng: -19};
 			var kort = new google.maps.Map(document.getElementById('island'), {
 				zoom: 6,
-				center: stadsetning
+				center: stadsetning,
+				disableDefaultUI: true
 			});
 			for (var x = 0; x < lengd; x++) {
 				/*var markerar = new google.maps.Marker({
