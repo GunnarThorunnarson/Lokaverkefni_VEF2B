@@ -1,26 +1,22 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title></title>
-		<script src="js/jquery.min.js"></script>
-		<link rel="stylesheet" src="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<title></title>		
 		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<script src="js/jquerySlider.js"></script>
-		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="js/jquery.min.js"></script>	
+		<link rel="stylesheet" type="text/css" href="css/jquery.nouislider.css">
 	</head>
 	<body>
 		<div id="island"></div>
-		<div id="priceRange">
-			Min: <input type="number" name="richterMin">	
-			Max: <input type="number" id="richterMax">
-			<p>
-				<label for="amount">Magn: </label>
-				<input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-			</p>
-			<div id="slider-range"></div>	
-		</div>
+		<div id="slider"></div>
+		<div id="price-range">
+      		Min: <input type="text" id="value-min" />
+      		Max: <input type="text" id="value-max" />
+      		<div id="slider"></div>
+    	</div>
 		<script src="js/main.js"></script>
+		<!--<script src="js/jquerySlider.js"></script>-->
+		<script src="js/nouislider.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkdShXzD-GU-X1GInnxeeNCPLPIBuNlZk&callback=initMap"></script>
 	</body>
 </html>
