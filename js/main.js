@@ -1,6 +1,7 @@
 "use strict";
 var skjalftar = [];
 var lengd = 0;
+var skjaftaFylki = [];
 
 
 function initMap() {
@@ -27,10 +28,10 @@ function initMap() {
 			});
 			(function() {
 				function init() {
-					var rows = [],
+					/*var rows = [],
 						$min = $('#value-min'),
 						$max = $('#value-max'),
-						$table = $('#rates');
+						$table = $('#rates');*/
 					for(var x = 0; x < lengd; x++) {
 						var skjalftaHringur = new google.maps.Circle({
 							strokeColor: '#FF0000',
@@ -42,31 +43,44 @@ function initMap() {
            					center: {lat: skjalftar[x].lat, lng: skjalftar[x].lng},
            					radius: skjalftar[x].richter * 10000
 						});
+						skjaftaFylki.push(skjalftaHringur);						
+					}
+					uppfaera(skjaftaFylki, skjalftar, 1, 10);
+				
+					function uppfaera(circle, skali, min, max)	{
+						var slider = document.getElementById('slider');
+
+						noUiSlider.create(slider, {
+							start: [0, 11],
+							connect: true, 
+							range: {
+								'min': 0, 
+								'max': 10
+							}
+						});
+						console.log(skjalftaHringur);
+						slider.noUiSlider.on('update', function(values, handle) {
+							for (var y = 0; y < lengd; y++) {
+								console.log(skali[y].richter);
+									if(skali[y].richter >= values[0] && skali[y].richter <= values[1]){
+										//circle.setMap(kort);
+										circle[y].setMap(kort);
+									}
+									else{
+										circle[y].setMap(null);
+									}
+								}
+						});						
 						
-					}
-					
-					for (var y = 0; y < lengd; y++) {
-						update(skjalftaHringur, skjalftar[y].richter, $min, $max.val());
-					}
-					
-					$('#slider').noUiSlider({
-						range: [0, 11],
-						start: [5, 11],
-						handles: 2,
-						margin: 1,
-						connect: true,
-						serialization: {to: [$min, $max], resolution: 1}
-					});
-					function update(circle, skali, min, max)	{
-						if(skali >= min && skali <= max) {
-							circle.setMap(kort);
+						if(1 == 1) {
+							//circle.setMap(kort);
 							//skali = 1;
+							
 						}
 						else {
 							circle.setMap(null);
 						}
-						var name = document.getElementById("value-max").value;
-						console.log(name);
+						
 					}
 					
 					
