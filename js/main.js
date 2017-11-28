@@ -26,47 +26,51 @@ function initMap() {
 				center: stadsetning,
 				disableDefaultUI: true
 			});
-			for (var x = 0; x < lengd; x++) {
-				/*var markerar = new google.maps.Marker({
-					map: kort, 
-					position: {lat: skjalftar[x].lat, lng: skjalftar[x].lng}
-				});*/
-				var skjalftaHringur = new google.maps.Circle({
-					strokeColor: '#FF0000',
-           			strokeOpacity: 0.8,
-           			strokeWeight: 2,
-           			fillColor: '#FF0000',
-           			fillOpacity: 0.35,
-           			map: kort,
-           			center: {lat: skjalftar[x].lat, lng: skjalftar[x].lng},
-           			radius: skjalftar[x].richter * 10000
-				});
-				synaSkala(skjalftaHringur, skjalftar[x].richter.toString(), {lat: skjalftar[x].lat, lng: skjalftar[x].lng});
+			(function() {
+				function init() {
+					for(var x = 0; x < lengd; x++) {
+						var skjalftaHringur = new google.maps.Circle({
+							strokeColor: '#FF0000',
+           					strokeOpacity: 0.8,
+           					strokeWeight: 2,
+           					fillColor: '#FF0000',
+        	   				fillOpacity: 0.35,
+           					map: kort,
+           					center: {lat: skjalftar[x].lat, lng: skjalftar[x].lng},
+           					radius: skjalftar[x].richter * 10000
+						});
+					}
+					var rows = [],
+						$min = $('#value-min'),
+						$max = $('#value-max'),
+						$table = $('#rates');
+					$('#slider').noUiSlider({
+						range: [0, 11],
+						start: [0, 11],
+						handles: 2,
+						margin: 1,
+						connect: true,
+						serialization: {to: [$min, $max], resolution: 1}
+					});
+					function update(min, max)	{
+						skjalftar.forEach(function(stakur)	{
+							console.log(stakur);
+							console.log($min.val(), $max.val());
+						});
+					}
+					update(9, 10);
 				}
+				$(init);
+			}());
 		}		
 	});		
 }
   
+/* Þetta var bara eitthvað test
 function synaSkala(circle, skali, local)	{
 	var infowindow = new google.maps.InfoWindow({
 		content: skali,
 		position: local
 	});
-	circle.addListener('click', function() {
-		//infowindow.open(circle.get('kort'), circle);
-	});
-}
-(function() {
-var rows = [],                        // rows array
-   	$min = $('#value-min'),           // Minimum text input
-   	$max = $('#value-max'),           // Maximum text input
-   	$table = $('#rates');
-	function init() {                     // Tasks when script first runs
-		$('#slider').noUiSlider({           // Set up the slide control
-	   		range: [0, 11], start: [0, 11], handles: 2, margin: 1, connect: true,
-	   		serialization: {to: [$min, $max],resolution: 1}
-	   	});	   
-	}
-	$(init);
-}());
+}*/
 
