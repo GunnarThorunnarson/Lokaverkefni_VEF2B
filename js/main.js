@@ -31,10 +31,6 @@ function initMap() {
 			});
 			(function() {
 				function init() {
-					/*var rows = [],
-						$min = $('#value-min'),
-						$max = $('#value-max'),
-						$table = $('#rates');*/
 					for(var x = 0; x < lengd; x++) {
 						var skjalftaHringur = new google.maps.Circle({
 							strokeColor: '#FF0000',
@@ -57,7 +53,6 @@ function initMap() {
 					}			
 					function uppfaera(circle, skali, min, max)	{
 						var slider = document.getElementById('slider');
-
 						noUiSlider.create(slider, {
 							start: [0, 11],
 							connect: true,
