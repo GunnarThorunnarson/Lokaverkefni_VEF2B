@@ -3,9 +3,9 @@ var skjalftar = [];
 var lengd = 0;
 var skjaftaFylki = [];
 var dt = '2017-02-17T22:32:25.000Z';
-console.log(new Date(dt).toLocaleString('en-CA', { hour12:true }));
+//console.log(new Date(dt).toLocaleString('en-CA', { hour12:true }));
 
-function initMap() {
+function initMap() {//Þetta er fallið sem birtir google maps
 	//Næ í gögn frá apis.is
 	$.ajax({
 		'url': 'http://apis.is/earthquake/is',
@@ -30,6 +30,7 @@ function initMap() {
 				disableDefaultUI: true
 			});
 			(function() {
+				//Þetta er fall sem býr til hringi á kortið fyrir hvern skjálfta frá apis.is
 				function init() {
 					for(var x = 0; x < lengd; x++) {
 						var skjalftaHringur = new google.maps.Circle({
@@ -46,12 +47,12 @@ function initMap() {
 						synaSkala(skjalftaHringur, skjalftar[x].richter.toString(), {lat: skjalftar[x].lat, lng: skjalftar[x].lng}, skjalftar[x].hvar, skjalftar[x].hvenaer);						
 					}
 					uppfaera(skjaftaFylki, skjalftar, 1, 10);					
-					function deila(str) {
+					/*function deila(str) {
 						var parts = str.split('T');
 						parts = str.split('.');
 						return parts[0]
-					}			
-					function uppfaera(circle, skali, min, max)	{
+					}*/			
+					function uppfaera(circle, skali, min, max)	{//Þetta er fall sem býr til slider og virknina bakvið hann
 						var slider = document.getElementById('slider');
 						noUiSlider.create(slider, {
 							start: [0, 11],
@@ -73,7 +74,7 @@ function initMap() {
 							} else {
 								inputNumber1.value = value;
 							}
-							for (var y = 0; y < lengd; y++) {
+							for (var y = 0; y < lengd; y++) {//Þetta er filter fyrir skjalftana
 								console.log(skali[y].richter);
 									if(skali[y].richter >= values[0] && skali[y].richter <= values[1]){
 										//circle.setMap(kort);
@@ -92,9 +93,9 @@ function initMap() {
 						});
 					}	
 
-					function synaSkala(circle, skali, local, hvar, hvenaer)	{
+					function synaSkala(circle, skali, local, hvar, hvenaer)	{//Opnar infowindow þegar smellt er á skjalfta
 						console.log(hvenaer);
-						var infowindow = new google.maps.InfoWindow({							
+						var infowindow = new google.maps.InfoWindow({//Þetta er infowindow frá google maps						
 							content: '<p>Staðsetning:  ' + hvar + '</p>' +
 									 '<p>Stærð: ' + skali + '</p>' +
 									 '<p>Tími: ' + moment(hvenaer).format('HH:MM') + '</p>' +
@@ -107,8 +108,8 @@ function initMap() {
 					}		
 					
 				}
-				$(init);
-			}());
+				$(init);//Keyrir init fallið
+			}());//Endir
 		}		
 	});		
 }
